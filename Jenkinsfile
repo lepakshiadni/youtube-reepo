@@ -1,26 +1,28 @@
 pipeline {
     agent any
-    stages {
-        stage("git checkout") {
-            steps {
+    stages{
+        stage("checkout"){
+            steps{
                 checkout scm
             }
         }
-        stage("Test") {
-            steps {
-                script {
-                    // Install npm using sudo
-                    sh 'sudo apt install npm'
-                    
-                    // Run npm test
-                    sh 'npm test'
-                }
+
+        stage("Test"){
+            steps{
+                sh 'sudo apt install npm'
+                sh 'npm test'
             }
         }
-        stage("Build") {
-            steps {
-                // Run npm build
+
+        stage("Build"){
+            steps{
                 sh 'npm run build'
+            }
+        }
+
+        stage("Build Image"){
+            steps{
+                sh 'docker build -t my-node-app:1.0 .'
             }
         }
     }
