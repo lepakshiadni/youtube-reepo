@@ -3,16 +3,12 @@ pipeline{
     stages{
         stage("git checkout"){
             steps{
-                checkout scm
-            }
-        }
-        stage("Prepare") {
-            steps {
-                sh 'sudo -S apt update && sudo -S apt install -y npm'
+                checkout
             }
         }
         stage ("Test"){
             steps{
+                sh 'sudo apt install npm'
                 sh 'npm test'
             }
         }
@@ -22,4 +18,4 @@ pipeline{
             }
         }
     }
-}
+}  
