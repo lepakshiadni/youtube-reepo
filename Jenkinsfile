@@ -6,9 +6,13 @@ pipeline{
                 checkout scm
             }
         }
+        stage("Prepare") {
+            steps {
+                sh 'sudo -S apt update && sudo -S apt install -y npm'
+            }
+        }
         stage ("Test"){
             steps{
-                sh 'sudo -S apt install npm'
                 sh 'npm test'
             }
         }
